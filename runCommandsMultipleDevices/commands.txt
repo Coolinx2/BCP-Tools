@@ -1,0 +1,6 @@
+configure terminal
+ip access-list standard SNMP_ACCESS
+ permit host 10.100.0.99
+
+snmp-server community readwritetest SNMP_ACCESS
+snmp-server community readonlytest SNMP_ACCESS
