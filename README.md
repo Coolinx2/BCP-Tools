@@ -13,7 +13,7 @@ To do list:
 
 -<b>Basic GUI for unused Interface function - Possibly draw a basic switch and fill out red ports for 'unused' ports
 
--<b>More dynamic scripting, not depending on text files (eg. multipleCommands function)
+-<b>More dynamic scripting, not depending on text files (eg. multipleCommands function)</b>
 
 
 This project matches my current uses, and I'm looking to develop it more just for the purposes of learning Python. I'm mainly testing these scripts on Cisco switches running IOS 15 but looking to expand it into ASAs (have a few personal functions for shared infrastructure purposes, VPN configs etc...)
