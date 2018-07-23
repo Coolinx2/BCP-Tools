@@ -1,0 +1,11 @@
+1) Create groups using the scheme 'VLANX' where X = the VLAN ID eg. 23, 100, 1021, 2943... etc.
+1.b) You can define RADIUS clients within the python script itself, just look for it
+2) Run: 1-Get-SID-Groups on a server with the active directory module to pull information from AD into a .csv file
+3) Run: 2-get_config-forsrv2016 and it should generate an XML file for you to then import on the NPS server.
+
+If you copy the generated xml file (called xml-final or similar) to the NPS server, you can use the powershell command:
+
+Import-NpsConfiguration C:\location\to\final-xml.xml
+
+The script was designed with a basic configuration for the NPS configuration with Ubiquiti devices.
+The specific Radius Attributes that work with Ubiquiti are included so don't expect this to work with other vendors without a bit of tweaking etc..

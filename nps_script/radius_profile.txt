@@ -1,0 +1,21 @@
+<%radius_child_name% name="%radius_name%">
+	<Properties>
+		<IP_Filter_Template_Guid dt:dt="string">{00000000-0000-0000-0000-000000000000}</IP_Filter_Template_Guid>
+		<Opaque_Data dt:dt="string" />
+		<Template_Guid dt:dt="string">{00000000-0000-0000-0000-000000000000}</Template_Guid>
+		<msIgnoreUserDialinProperties dt:dt="boolean">1</msIgnoreUserDialinProperties>
+		<msNPAllowDialin dt:dt="boolean">1</msNPAllowDialin>
+		<msNPAllowedEapType dt:dt="bin.hex">19000000000000000000000000000000</msNPAllowedEapType>
+		<msNPAllowedEapType dt:dt="bin.hex">1a000000000000000000000000000000</msNPAllowedEapType>
+		<msNPAuthenticationType2 dt:dt="int">5</msNPAuthenticationType2>
+		<msNPAuthenticationType2 dt:dt="int">3</msNPAuthenticationType2>
+		<msNPAuthenticationType2 dt:dt="int">9</msNPAuthenticationType2>
+		<msNPAuthenticationType2 dt:dt="int">4</msNPAuthenticationType2>
+		<msNPAuthenticationType2 dt:dt="int">10</msNPAuthenticationType2>
+		<msRADIUSFramedProtocol dt:dt="int">1</msRADIUSFramedProtocol>
+		<msRADIUSServiceType dt:dt="int">2</msRADIUSServiceType>
+		<msRADIUSTunnelMediumType dt:dt="int">6</msRADIUSTunnelMediumType>
+		<msRADIUSTunnelPrivateGroupId dt:dt="string">%radius_vlan%</msRADIUSTunnelPrivateGroupId>
+		<msRADIUSTunnelType dt:dt="int">13</msRADIUSTunnelType>
+	</Properties>
+</%radius_child_name%>

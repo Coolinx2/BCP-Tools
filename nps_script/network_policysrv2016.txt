@@ -1,0 +1,11 @@
+<%nps_child_name% name="%nps_name%">
+	<Properties>
+		<Opaque_Data dt:dt="string" />
+		<Policy_Enabled dt:dt="boolean">1</Policy_Enabled>
+		<Policy_SourceTag dt:dt="int">0</Policy_SourceTag>
+		<Template_Guid dt:dt="string">{00000000-0000-0000-0000-000000000000}</Template_Guid>
+		<msNPAction dt:dt="string">%nps_action%</msNPAction>
+		<msNPConstraint dt:dt="string">NTGROUPS(%nps_group_sid%)</msNPConstraint>
+		<msNPSequence dt:dt="int">%nps_sequence%</msNPSequence>
+	</Properties>
+</%nps_child_name%>

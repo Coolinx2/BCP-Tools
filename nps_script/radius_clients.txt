@@ -1,0 +1,12 @@
+<%clientname% name="%clientname%">
+	<Properties>
+		<Client_Secret_Template_Guid xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="string">{00000000-0000-0000-0000-000000000000}</Client_Secret_Template_Guid>
+		<IP_Address xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="string">%clientip%</IP_Address>
+		<NAS_Manufacturer xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="int">0</NAS_Manufacturer>
+		<Opaque_Data xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="string"></Opaque_Data>
+		<Radius_Client_Enabled xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="boolean">1</Radius_Client_Enabled>
+		<Require_Signature xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="boolean">0</Require_Signature>
+		<Shared_Secret xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="string">%sharedsecret%</Shared_Secret>
+		<Template_Guid xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="string">{00000000-0000-0000-0000-000000000000}</Template_Guid>
+	</Properties>
+</%clientname%>
