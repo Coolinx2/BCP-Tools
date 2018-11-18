@@ -5,16 +5,13 @@
     This is a basic function that creates a text file (name is passed into the function aurguments) with the
     text which is also passed into the function (_text)
 	
-    -getConfig(connection_details, path)
+    -getConfig(connection_details)
     A basic function that will pull the configuration (filter out passwords/local usernames)
-    and save the file into a zip file, this is best to be used in a for loop eg.
+    and save the file into a local txt file, this is best to be used in a for loop eg.
     Create a text file with IP addresses with all Cisco IOS devices, and run the function through
     each IP address...
 
-    connection_details = Connection Handler details for Netmiko SSH Library
-    path = eg. A local NTFS path or network share
-
-    -getVlanInfo(connection_details)
+    -getVlanInfo(connection_details) !!! THIS NEEDS TO BE WORKED ON
     This function will return the basic VLAN ports assigned to specific vlans (doesn't take into account trunks)
 
     -multipleCommands(connection_details, _file)
@@ -23,7 +20,7 @@
 	
     -inventoryCiscoSwitch(connection_details,vlan)
     This function will do a basic inventory and print it on screen (only works for Cisco IOS)
-    You must specify the management VLAN to grab the IP address but other things it returns:
+    You must specify the management VLAN to grab the Management IP address but other things it returns:
     Hostname, IOS Version, PID, VID, S/N
 
     -lldpBasicInventory(connection_details)
@@ -49,7 +46,7 @@ import os
 import time
 from datetime import datetime
 
-def getConfig(connection_details, path):
+def getConfig(connection_details):
 
     _commandConfig = "show run"
 
@@ -60,8 +57,6 @@ def getConfig(connection_details, path):
         _getRunningConfig = _current_session.send_command(_commandConfig)
         _getHostname = _current_session.find_prompt().replace('#','')
         _current_session.disconnect()
-        
-        #print(_getHostname)
         
     except ValueError as err:
         print("Error: {0}".format(err))
@@ -82,15 +77,14 @@ def getConfig(connection_details, path):
                 del _splitConfigFile[index-1] #Deletes any relevant info like Usernames, Passwords etc...
     _getRunningConfig = '\n'.join(_splitConfigFile)
     try:
-        os.chdir(path)
-        fileName = ("{0}--{1}".format(datetime.now().strftime('%d-%m-%Y'), _getHostname))
-        writeTextFile(fileName, _getRunningConfig)
+        fileName = ("{0}_{1}".format(_getHostname,datetime.now().strftime('%d-%m-%Y')))
+        writeTextFile(os.path.join('backups', fileName), _getRunningConfig)
     except OSError as err:
         print("OS Error: {0}".format(err))
 
 def getVlanInfo(connection_details):
 
-    _commandConfig = "show vlan"
+    _commandConfig = "show vlan brief | exc ----"
 
     try:
         _current_session = ConnectHandler(**connection_details)
@@ -105,20 +99,25 @@ def getVlanInfo(connection_details):
 
     index = 0
 
-    vlan_ports = ['']
-    vlans = _getVlanInformation.split('\n')
-    for line in vlans:
-        index = index + 1
-        for vlan in ports:
-            if vlan in line:
-                print(line,'\n')
+    vlan_list = []
 
-def multipleCommands(connection_details, _file):
+    _vlans = _getVlanInformation.split('\n')
+    _vlans = list(filter(None, _vlans))
+    del _vlans[0] #Current index 0 is normally the heading eg. VLAN Status etc....
+
+    for _vlan in _vlans:
+        _vlan = _vlan.split()
+        vlan_dict = {'vlanId' : _vlan[0], 'name' : _vlan[1]}
+        vlan_list.append(vlan_dict)
+
+    return vlan_list
+
+def multipleCommands(connection_details, _commands):
     try:
         _current_session = ConnectHandler(**connection_details)    
         _current_session.enable()
 
-        _command_results = _current_session.send_config_from_file(_file)
+        _command_results = _current_session.send_config_set(_commands)
         print(_command_results)
         print("Completed...")
 
@@ -279,21 +278,3 @@ def writeTextFile(_name, _text):
     file.write(_text)
     file.close()
 ##############################################
-'''def zipConfigurations(_name, _path, _config):
-    try:
-        os.chdir(_path)
-
-        _config_name = _name + ".txt"
-        current_zip = zipfile.ZipFile('{0}'.format(datetime.now().strftime('%d-%m-%Y.zip')),'w')
-        writeTextFile(_name, _config)
-
-        current_zip.write(_config_name)
-        
-    except OSError as err:
-        print("OS Error: {0}:".format(err))
-    os.remove(_config_name)'''
-##############################################
-    
-def test(connection_details):
-    getConfig(connection_details)
-    
